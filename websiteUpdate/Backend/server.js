@@ -2,9 +2,11 @@ import express from "express";
 import puppeteer from "puppeteer";
 import cors from "cors";
 import { MongoClient, ObjectId } from "mongodb";
+import dotenv from "dotenv";
+dotenv.config();
 
-const uri =
-  "mongodb+srv://pankajbarwarpb:Pankaj123@mangafavourites.kwk24.mongodb.net/?retryWrites=true&w=majority&appName=mangaFavourites";
+const uri = process.env.MONGODB_CONNECTION_STRING;
+
 const client = new MongoClient(uri);
 
 const dbName = "mangaFavourites"; // Your database name
