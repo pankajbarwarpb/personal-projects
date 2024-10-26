@@ -1,0 +1,138 @@
+/* Container for centering and styling */
+.add-new {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #f1f2f6, #dcdde1);
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Form styling */
+.add-new form {
+  width: 400px;
+  padding: 2rem;
+  background-color: #ffffff;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  animation: slideIn 0.8s ease-in-out;
+}
+
+/* Fade-in animation for container */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Slide-in animation for form */
+@keyframes slideIn {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Form elements */
+.add-new form div {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Labels styling */
+.add-new form label {
+  color: #2f3640;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+  transition: color 0.3s;
+}
+
+/* Input styling */
+.add-new form input[type="url"],
+.add-new form input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #dcdde1;
+  border-radius: 4px;
+  background-color: #f5f6fa;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Input focus effect */
+.add-new form input[type="url"]:focus,
+.add-new form input[type="text"]:focus {
+  outline: none;
+  border-color: #3498db;
+  background-color: #eaf6ff;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+}
+
+/* Submit button styling */
+.add-new form .info-icon-container button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #3498db;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.add-new form .info-icon-container button[type="submit"]:hover {
+  background-color: #2980b9;
+  box-shadow: 0px 6px 16px rgba(41, 128, 185, 0.3);
+  transform: translateY(-2px);
+}
+
+.add-new form .info-icon-container button[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: 0px 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+/* Back button styling */
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #3498db;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s, transform 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+/* Back button arrow styling */
+.back-button::before {
+  content: "←";
+  margin-right: 5px;
+  transition: transform 0.3s;
+}
+
+/* Hover effect for back button */
+.back-button:hover {
+  color: #2980b9;
+  transform: scale(1.05);
+}
+
+.back-button:hover::before {
+  transform: translateX(-3px);
+}

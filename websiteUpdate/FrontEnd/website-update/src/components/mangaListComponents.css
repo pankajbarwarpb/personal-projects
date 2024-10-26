@@ -1,0 +1,97 @@
+/* Manga List Container */
+.manga-list {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.manga-list h1 {
+  font-size: 1.8rem;
+  color: #34495e;
+  font-weight: bold;
+}
+
+.manga-list button {
+  padding: 15px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #16a920;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.manga-list button:hover {
+  background-color: #04740b;
+  box-shadow: 0px 6px 16px rgba(41, 128, 185, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Manga Item Styling */
+.manga-item {
+  margin: 15px 0;
+  padding: 15px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.manga-item .title {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.manga-spec {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.total-chapters,
+.read-till {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: auto;
+  width: 180px;
+  word-break: break-all;
+}
+
+.manga-spec button {
+  padding: 5px 10px;
+  width: 200px;
+  height: 40px;
+  border: none;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.manga-spec button:hover {
+  background-color: #2980b9;
+  box-shadow: 0px 6px 16px rgba(41, 128, 185, 0.3);
+  transform: translateY(-2px);
+}
+
+.manga-item .delete-button {
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  position: absolute;
+}
+
+.manga-item .delete-button:hover {
+  cursor: pointer;
+  box-shadow: 0px 6px 16px rgba(41, 128, 185, 0.3);
+  transform: translateY(-2px);
+}

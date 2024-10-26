@@ -1,0 +1,75 @@
+/* Drop-Down Container */
+.drop-down {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 50px;
+  width: 250px;
+  color: #3498db;
+  font-weight: bold;
+}
+
+/* Drop-Down Select Styling */
+.drop-down select {
+  -webkit-appearance: none;
+  /* Remove default appearance on Safari and Chrome */
+  -moz-appearance: none;
+  /* Firefox */
+  appearance: none;
+  /* Standard */
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  width: 100%;
+  max-width: 250px;
+}
+
+/* Style on Focus for Accessibility */
+.drop-down select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+}
+
+/* Drop-Down Option Styling */
+.drop-down option {
+  padding: 8px;
+  font-size: 0.9rem;
+}
+
+/* Styling Unread Chapters (Bold and Dark Color) */
+.drop-down option.unread {
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+/* Styling Read Chapters (Gray Color and Italic) */
+.drop-down option.read {
+  color: #bdc3c7;
+  font-style: italic;
+}
+
+/* Edge & IE11 Specific Adjustment */
+@supports (-ms-ime-align: auto) {
+
+  /* Target IE11/Edge only */
+  .drop-down select {
+    padding-right: 30px;
+    /* Add padding for dropdown arrow */
+  }
+}
+
+/* Adjust Arrow Styling for Consistency */
+.drop-down select {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns%3D%22http://www.w3.org/2000/svg%22 viewBox%3D%220 0 4 5%22%3E%3Cpath fill%3D%22%233498db%22 d%3D%22M2 0L0 2h4z%22/%3E%3C/svg%3E');
+  /* Small blue down arrow */
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
+  background-size: 10px 10px;
+}

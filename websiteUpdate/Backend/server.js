@@ -31,12 +31,14 @@ client
 // Add New Manga Route
 app.post("/add-new", async (req, res) => {
   try {
-    const { url, searchFor, title: titleSelector } = req.body;
+    const { url, chapterName, chapterLink, title, extractType } = req.body; // Add extractType to the request body
 
     console.log({
       url,
-      searchFor,
-      title: titleSelector,
+      chapterName,
+      chapterLink,
+      title,
+      extractType,
     });
 
     // Launch Puppeteer
@@ -44,41 +46,47 @@ app.post("/add-new", async (req, res) => {
     const page = await browser.newPage();
 
     await page.goto(url, { waitUntil: "domcontentloaded" });
-    await page.waitForSelector(searchFor);
+    await page.waitForSelector(chapterName);
 
-    const chapters = await page.$$eval(searchFor, (chapterLinks) =>
-      chapterLinks.map((chapter) => ({
-        title: chapter.textContent.trim(),
-        link: chapter.href,
-      }))
+    const chapterTitles = await page.$$eval(chapterName, (chapter_titles) =>
+      chapter_titles.map((chapter) => chapter.textContent.trim())
     );
 
-    const postTitles = await page.$eval(titleSelector, (element) =>
-      element.textContent.trim()
-    );
-    console.log({ title: titleSelector, postTitles });
+    let chapterLinks;
+    if (extractType === "href") {
+      chapterLinks = await page.$$eval(
+        chapterName,
+        (chapter_titles) => chapter_titles.map((chapter) => chapter.href) // Extract href
+      );
+    } else if (extractType === "src") {
+      chapterLinks = await page.$$eval(
+        chapterName,
+        (chapter_titles) => chapter_titles.map((chapter) => chapter.src) // Extract src if applicable
+      );
+    } else {
+      throw new Error("Invalid extractType specified. Use 'href' or 'src'.");
+    }
 
-    const postTitle = postTitles[0];
+    const postTitle = title;
 
     await browser.close();
 
-    console.log({ chapters });
-
     // Construct manga object
     const manga = {
-      title: postTitle, // Example to extract a title from URL
-      chapters: chapters,
-      readTill: 0, // Initial value for readTill
+      title: postTitle,
+      chapters: chapterTitles.map((chapterTitle, index) => ({
+        title: chapterTitle,
+        link: chapterLinks[index],
+      })),
+      readTill: 0,
     };
 
     // Save manga to MongoDB
     const db = client.db(dbName);
-    const collection = db.collection("mangas"); // Changed collection name to 'mangas'
+    const collection = db.collection("mangas");
 
-    // Insert manga into the database
     await collection.insertOne(manga);
 
-    // Send the added manga as JSON
     res.json({ manga });
   } catch (error) {
     console.error("Error adding new manga:", error);
@@ -136,7 +144,34 @@ app.put("/update-last-read", async (req, res) => {
   }
 });
 
+// Delete Manga Route
+app.delete("/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Ensure id is provided
+    if (!id) {
+      return res.status(400).send("Manga ID is required");
+    }
+
+    const db = client.db(dbName);
+    const collection = db.collection("mangas");
+
+    // Delete the manga by ID
+    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).send("Manga not found");
+    }
+
+    res.status(200).send("Manga deleted successfully");
+  } catch (error) {
+    console.error("Error deleting manga:", error);
+    res.status(500).send("Error deleting manga");
+  }
+});
+
 // Start the server
 app.listen(3080, () => {
-  console.log("Server running on http://localhost:3080");
+  console.log("Server running on http://192.168.0.102:3080");
 });

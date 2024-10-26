@@ -1,3 +1,6 @@
+// DropDownInput.tsx
+import "./dropDown.css";
+
 interface DropDownInputProps {
   index: number;
   onSelect?: (value: number) => void;
@@ -11,17 +14,18 @@ export const DropDownInput: React.FC<DropDownInputProps> = ({
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectIndex = event.target.selectedIndex;
-    onSelect?.(selectIndex); // Call the provided onSelect function with the selected index
+    onSelect?.(selectIndex);
   };
-
-  console.log({ options, index });
 
   return (
     <div className="drop-down">
-      <span>{options[index]}</span>
       <select value={options[index]} onChange={handleChange}>
-        {options.map((option, index) => (
-          <option key={index} value={option}>
+        {options.map((option, idx) => (
+          <option
+            key={idx}
+            value={option}
+            className={idx <= index ? "read" : "unread"} // Style read and unread chapters
+          >
             {option}
           </option>
         ))}

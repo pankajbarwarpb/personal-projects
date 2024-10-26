@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Manga } from "./type";
 import { MangaItem } from "./MangaItem";
 import { useNavigate } from "react-router-dom";
+import "./mangaListComponents.css";
 
 export const MangaList: React.FC = () => {
   const [list, setList] = useState<Manga[]>([]);
@@ -10,7 +11,7 @@ export const MangaList: React.FC = () => {
   useEffect(() => {
     async function getList() {
       try {
-        const response = await fetch("http://localhost:3080/list");
+        const response = await fetch("http://192.168.0.102:3080/list");
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -42,7 +43,7 @@ export const MangaList: React.FC = () => {
           }}
           style={{ height: "20px" }}
         >
-          Add New
+          + Add New
         </button>
       </div>
       <ul>
